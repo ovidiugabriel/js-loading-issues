@@ -1,0 +1,46 @@
+<!--
+    Example of tracking loading error using onerror callback on the HTML script
+    tag.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <!-- <script type="text/javascript" src="js/testFunction.js"></script> -->
+</head>
+<body>
+
+<script type="text/javascript">
+
+// Call test function
+
+//testFunction();
+
+const script = document.createElement('script');
+script.src = 'js/testFunction1.js';
+script.type = 'text/javascript';
+
+// Add event listeners for load and error events
+script.onload = () => {
+    console.log('Script loaded successfully.');
+};
+
+script.onerror = (e) => {
+/*
+    Event {
+        type: "error"
+    }
+*/
+    console.error('Failed to load script:', e);
+};
+
+// Append the script tag to the document
+document.head.appendChild(script);
+
+</script>
+
+</body>
+</html>
