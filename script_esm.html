@@ -1,0 +1,25 @@
+<!--
+    Example of tracking loading error using ESM module
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body>
+
+<script type="module">
+
+import { testFunction } from './js/testFunction1.js';
+
+// If the file is not loaded the browser automatically stops the script execution
+// by throwing an uncaught exception during import.
+
+testFunction();
+
+</script>
+
+</body>
+</html>
