@@ -21,11 +21,9 @@ var found = false;
 
 var entry;
 for (entry of resources) {
-    if ('script' == entry.initiatorType) {
-        if (entry.name.endsWith(scriptUrl)) {
-            found = true;
-            break;
-        }
+    if ('script' == entry.initiatorType && entry.name.endsWith(scriptUrl)) {
+        found = true;
+        break;
     }
 }
 
