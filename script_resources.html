@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <script type="text/javascript" src="js/testFunction.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// resources is array of PerformanceResourceTiming
+const resources = performance.getEntriesByType('resource');
+//console.log('resources=', resources);
+
+const scriptUrl = 'js/testFunction1.js';
+
+var found = false;
+
+var entry;
+for (entry of resources) {
+    if ('script' == entry.initiatorType) {
+        if (entry.name.endsWith(scriptUrl)) {
+            found = true;
+            break;
+        }
+    }
+}
+
+console.log('found=', found);
+
+if (found) {
+    // Call test function only if loaded
+    testFunction();
+}
+else {
+    console.error('Script not loaded correctly');
+}
+
+</script>
+
+</body>
+</html>
