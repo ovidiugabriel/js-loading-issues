@@ -15,17 +15,17 @@
 
 <script type="text/javascript">
 
-// Call test function
-
-//testFunction();
-
 const script = document.createElement('script');
-script.src = 'js/testFunction1.js';
+script.src = 'js/testFunction.js';
 script.type = 'text/javascript';
 
 // Add event listeners for load and error events
 script.onload = () => {
     console.log('Script loaded successfully.');
+
+    // Call test function
+
+    testFunction();
 };
 
 script.onerror = (e) => {
