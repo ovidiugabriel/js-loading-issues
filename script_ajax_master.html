@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="detail"></div>
+
+    <a href="javascript:void(0)" onclick="callAjaxDetail()">Click here</a>
+
+<script type="text/javascript">
+
+const url = 'http://localhost/js-loading-issues/script_ajax_detail.html';
+$.get(url, function(response) {
+    console.log(response);
+
+    $('#detail').html(response);
+}).fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("Error loading the script: textStatus=", textStatus, 'errorThrown=', errorThrown);
+});
+
+function callAjaxDetail() {
+    const resources = performance.getEntriesByType('resource');
+    console.log('resources=', resources);
+
+    // IMPORTANT not able to catch missing inline JS code
+    const scriptUrl = 'js/ajax_detail.js';
+
+    var found = false;
+
+    var entry;
+    for (entry of resources) {
+        // <script> tags in AJAX response are loaded using `xmlhttprequest`` instead of `script`
+        if ('xmlhttprequest' == entry.initiatorType && entry.name.endsWith(scriptUrl)) {
+            found = true;
+            break;
+        }
+    }
+
+    console.log('found=', found);
+
+    if (!found) {
+        console.error('Script not loaded correctly');
+        return;
+    }
+
+    try {
+        ajax_detail();
+    }
+    catch (ex) {
+        alert(ex);
+    }
+}
+
+</script>
+
+</body>
+</html>
