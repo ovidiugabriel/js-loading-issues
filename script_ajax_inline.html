@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="detail"></div>
+
+    <a href="javascript:void(0)" onclick="callAjaxDetail()">Click here</a>
+
+<script type="text/javascript">
+
+// Code to catch loading problem of inline JS code
+
+var module_loaded = false;
+
+const url = 'http://localhost/js-loading-issues/script_ajax_detail.html';
+$.get(url, function(response) {
+    console.log(response);
+
+    $('#detail').html(response);
+
+    // Check if module root symbol is loaded
+    if (typeof ajax_detail_module == 'object') {
+        // module successfully loaded
+        module_loaded = true;
+    }
+
+}).fail(function(jqXHR, textStatus, errorThrown) {
+    // failed to load
+    console.error("Error loading the script: textStatus=", textStatus, 'errorThrown=', errorThrown);
+});
+
+function callAjaxDetail() {
+
+    if (!module_loaded) {
+        console.error('Error: module not loaded');
+        return;
+    }
+
+    try {
+        ajax_detail_module.ajax_detail();
+    }
+    catch (ex) {
+        alert(ex);
+    }
+}
+
+</script>
+
+</body>
+</html>
